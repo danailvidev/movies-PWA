@@ -122,5 +122,13 @@
       }
     }
   },
-  "defaultProject": "movies-PWA"
+  "defaultProject": "movies-PWA",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "inlineStyle": true,
+        "inlineTemplate": true
+      }
+    }
+  }
 }
