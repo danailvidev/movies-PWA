@@ -10,20 +10,25 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { IosInstallComponent } from './ios-install/ios-install.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    AppRoutingModule.components,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [IosInstallComponent]
+    declarations: [
+        AppComponent,
+        AppRoutingModule.components,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    entryComponents: [IosInstallComponent]
 })
 export class AppModule { }

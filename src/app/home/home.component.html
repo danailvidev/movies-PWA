@@ -1,0 +1,43 @@
+<form class="example-form" [formGroup]="searchForm" (ngSubmit)="search()">
+    <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Type movie title" formControlName="title">
+    </mat-form-field>
+
+    <mat-slide-toggle class="example-full-width" formControlName="plot">
+        <span>Plot </span>
+        <span *ngIf="searchForm.controls.plot.value == true">short</span>
+        <span *ngIf="searchForm.controls.plot.value == false">full</span>
+    </mat-slide-toggle>
+
+    <div style="padding: 20px 0;">
+        <button type="submit" mat-raised-button color="primary" [disabled]="!searchForm.valid">Search</button>
+        <button type="button" mat-raised-button (click)="result = '';searchForm.reset()">Reset</button>
+    </div>
+
+</form>
+
+<div *ngIf="movies && info" class="info">
+    <mat-toolbar>
+        <span>Total Results: {{info}}</span>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+</div>
+
+<div *ngIf="movies" class="movies">
+    <mat-card class="example-card" *ngFor="let movie of movies; let f = first; let l = last">
+        <mat-card-header>
+            <mat-card-title>Title: {{movie.Title}}</mat-card-title>
+            <mat-card-subtitle><strong>Year: </strong>{{movie.Year}}</mat-card-subtitle>
+            <mat-card-subtitle>
+                <span><strong>Imdb Id: </strong></span>
+                <a href="https://www.imdb.com/title/{{movie.imdbID}}/" target="_blank">{{movie.imdbID}}</a>
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <img [src]="movie.Poster" [alt]="movie.Title" height="150" width="100">
+        </mat-card-content>
+
+    </mat-card>
+</div>

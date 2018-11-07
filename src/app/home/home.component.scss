@@ -1,0 +1,22 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+      .example-card {
+        max-width: 300px;
+        min-width: 300px;
+        margin: 20px;
+      }
+  }
+  
