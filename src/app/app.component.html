@@ -1,6 +1,14 @@
 <div class="container">
+    <mat-toolbar class="toolbar" [class.app-is-mobile]="mobileQuery.matches" color="primary">
+        <button mat-icon-button (click)="lnav.toggle()" *ngIf="mobileQuery.matches">
+            <mat-icon>menu</mat-icon>
+        </button>
+        {{title}}
+        <div class="fill-space"></div>
+    </mat-toolbar>
     <mat-sidenav-container fullscreen [hasBackdrop]="mobileQuery.matches">
-        <mat-sidenav #lnav mode="over" class="sidenav">
+        <mat-sidenav #lnav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+            fixedTopGap="56" class="sidenav">
             <div class="content">
                 <mat-list>
                     <mat-list-item *ngFor="let route of nav">
@@ -10,13 +18,7 @@
             </div>
         </mat-sidenav>
         <mat-sidenav-content class="sidenav-content">
-            <mat-toolbar class="toolbar" [class.app-is-mobile]="mobileQuery.matches" color="primary">
-                <button mat-icon-button (click)="lnav.toggle()" *ngIf="mobileQuery.matches">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                {{title}}
-                <div class="fill-space"></div>
-            </mat-toolbar>
+
             <mat-drawer-container class="sidenav-container">
                 <mat-drawer mode="side" [opened]="!mobileQuery.matches">
                     <div class="content">
