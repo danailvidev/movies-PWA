@@ -1,22 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './ui/containers/layout/layout.component';
+import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [{
-    path: '',
-    component: LayoutComponent,
-    children: [{
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '/movies',
-    }, {
-        path: 'movies',
-        loadChildren: './movie/movie.module#MovieModule'
-    }],
-}];
+const routes: Routes = [
+    { path: '', component: HomeComponent }
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+    static components = [
+        HomeComponent 
+    ]
+ }
