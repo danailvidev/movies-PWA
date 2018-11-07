@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     search() {
         console.log(this.searchForm.value)
         let plot = this.searchForm.value.plot == true ? 'full' : 'short';
-        return this.http.get(`http://www.omdbapi.com/?s=${this.searchForm.value.title}&plot=${plot}&apikey=${env.omdbapiApikey}`).subscribe((res: MoviesResponse) => {
+        return this.http.get(`https://www.omdbapi.com/?s=${this.searchForm.value.title}&plot=${plot}&apikey=${env.omdbapiApikey}`).subscribe((res: MoviesResponse) => {
             if (res.Response == 'True') {
                 this.movies = res.Search;
                 this.info = res.totalResults
