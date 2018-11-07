@@ -2,17 +2,20 @@ import {
     Component,
     ChangeDetectorRef,
     EventEmitter,
-    Output
+    Output,
+    OnInit,
+    OnDestroy
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatSnackBar } from '@angular/material';
+import { IosInstallComponent } from './ios-install/ios-install.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
     title = 'PWA';
     mobileQuery: MediaQueryList;
     nav = [
@@ -28,10 +31,37 @@ export class AppComponent {
     private mobileQueryListener: () => void;
     @Output() toggleSideNav = new EventEmitter();
 
-    constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    constructor(
+        changeDetectorRef: ChangeDetectorRef,
+        media: MediaMatcher,
+        private toast: MatSnackBar) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    }
+
+    ngOnInit() {
         this.mobileQuery.addListener(this.mobileQueryListener);
+
+        // Detects if device is on iOS 
+        const isIos = () => {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test(userAgent);
+        }
+        // Detects if device is in standalone mode
+        const isInStandaloneMode = () => ('standalone' in (window as any).navigator) && ((window as any).navigator.standalone);
+
+        // Checks if should display install popup notification:
+        if (isIos() && !isInStandaloneMode()) {
+            this.toast.openFromComponent(IosInstallComponent, {
+                duration: 8000,
+                horizontalPosition: 'start',
+                panelClass: ['mat-elevation-z3']
+            });
+        }
+    }
+
+    ngOnDestroy() {
+        this.mobileQuery.removeListener(this.mobileQueryListener);
     }
 
     toggleMobileNav(nav: MatSidenav) {

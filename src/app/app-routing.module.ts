@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { IosInstallComponent } from './ios-install/ios-install.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent }
@@ -12,6 +13,7 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
     static components = [
-        HomeComponent 
+        HomeComponent,
+        IosInstallComponent
     ]
  }
